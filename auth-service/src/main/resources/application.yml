@@ -1,0 +1,19 @@
+server:
+  port: 9093
+
+
+spring:
+  application:
+    name: AUTH-SERVICE
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8080/eureka/
+  instance:
+    hostname: localhost
+
+jwt.secret: thanhnguyen
+jwt.get.token.uri: /authenticate

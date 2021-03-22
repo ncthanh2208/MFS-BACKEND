@@ -1,0 +1,44 @@
+server:
+  port: 9191
+
+spring:
+  application:
+    name: API-GATEWAY
+
+zuul:
+  routes:
+    USER-SERVICE:
+      path: /users/**
+      url: http://localhost:9092/users
+    FILE-SERVICE:
+      path: /files/**
+      url: http://localhost:9091/files
+    AUTH-SERVICE:
+      path: /authenticate/**
+      url: http://localhost:9093/authenticate
+    COMMENT-SERVICE:
+      path: /comments/**
+      url: http://localhost:9095/comments
+    UPDATE-SERVICE:
+      path: /update/**
+      url: http://localhost:9097/update
+
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8080/eureka/
+  instance:
+    hostname: localhost
+
+
+jwt.secret: thanhnguyen
+jwt.get.token.uri: /authenticate
+
+spring.servlet.multipart.max-file-size: 150MB
+spring.servlet.multipart.max-request-size: 150MB
+spring.http.multipart.max-request-size: 150MB
+spring.http.multipart.max-file-size: 150MB
+
