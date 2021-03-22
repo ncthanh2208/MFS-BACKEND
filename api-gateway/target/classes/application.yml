@@ -19,9 +19,6 @@ zuul:
     COMMENT-SERVICE:
       path: /comments/**
       url: http://localhost:9095/comments
-    UPDATE-SERVICE:
-      path: /update/**
-      url: http://localhost:9097/update
 
 
 eureka:

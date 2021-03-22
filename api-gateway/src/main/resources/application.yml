@@ -9,7 +9,7 @@ zuul:
   routes:
     USER-SERVICE:
       path: /users/**
-      url: http://localhost:9091/users
+      url: http://localhost:9092/users
     FILE-SERVICE:
       path: /files/**
       url: http://localhost:9091/files
