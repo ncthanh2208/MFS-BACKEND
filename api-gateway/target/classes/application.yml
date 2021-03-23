@@ -34,8 +34,8 @@ eureka:
 jwt.secret: thanhnguyen
 jwt.get.token.uri: /authenticate
 
-spring.servlet.multipart.max-file-size: 150MB
-spring.servlet.multipart.max-request-size: 150MB
-spring.http.multipart.max-request-size: 150MB
-spring.http.multipart.max-file-size: 150MB
+spring.servlet.multipart.max-file-size: 20MB
+spring.servlet.multipart.max-request-size: 20MB
+spring.http.multipart.max-request-size: 20MB
+spring.http.multipart.max-file-size: 20MB
 
