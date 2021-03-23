@@ -40,9 +40,44 @@ public class UserServiceImlp implements UserService {
 
     @Override
     @Transactional
-    public void update(User user){
-            userRepository.save(user);
-
+    public void update(User user,int id) {
+        Optional<User> userDb = userRepository.findById(id);
+            if (userDb.get().getLevel() != user.getLevel() && user.getLevel() != null) {
+                userDb.get().setLevel(user.getLevel());
+            } else {
+                userDb.get().setLevel(userDb.get().getLevel());
+            }
+            //------------------
+            if (userDb.get().getEmail() != user.getEmail() && user.getEmail() != null) {
+                userDb.get().setEmail(user.getEmail());
+            } else {
+                userDb.get().setEmail(userDb.get().getEmail());
+            }
+            //------------------
+            if (userDb.get().getPassWord() != user.getPassWord() && user.getPassWord() != null) {
+                userDb.get().setPassWord(user.getPassWord());
+            } else {
+                userDb.get().setPassWord(userDb.get().getPassWord());
+            }
+            //------------------
+            if (userDb.get().getRole() != user.getRole() && user.getRole() != null) {
+                userDb.get().setRole(user.getRole());
+            } else {
+                userDb.get().setRole(userDb.get().getRole());
+            }
+            //------------------
+            if (userDb.get().getDailyLimit() != user.getDailyLimit()) {
+                userDb.get().setDailyLimit(user.getDailyLimit());
+            } else {
+                userDb.get().setDailyLimit(userDb.get().getDailyLimit());
+            }
+            //------------------
+            if (userDb.get().getDate() != user.getDate() && user.getDate() != null) {
+                userDb.get().setDate(user.getDate());
+            } else {
+                userDb.get().setDate(userDb.get().getDate());
+            }
+            userRepository.save(userDb.get());
     }
 
     @Override

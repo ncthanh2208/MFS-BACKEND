@@ -2,18 +2,17 @@ package com.dxc.fresher.auth.controllers;
 
 
 import com.dxc.fresher.auth.api.UserApi;
-import com.dxc.fresher.auth.exceptions.ApiExceptionHandler;
-import com.dxc.fresher.auth.exceptions.ApiRequestException;
+import com.dxc.fresher.auth.exceptions.ApiException;
 import com.dxc.fresher.auth.models.UserModel;
 import com.dxc.fresher.auth.services.MyUserDetailsService;
 import com.dxc.fresher.auth.models.AuthenticationRequest;
 import com.dxc.fresher.auth.models.AuthenticationResponse;
 import com.dxc.fresher.auth.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,8 +40,8 @@ class AuthenticationController {
 					new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword())
 			);
 		}
-		catch (ApiRequestException e) {
-			throw new ApiRequestException("Incorrect username or password", e);
+		catch (ApiException e) {
+			throw new ApiException("Incorrect username or password", HttpStatus.FORBIDDEN);
 		}
 
 		UserModel userResults = userApi.findByUserName(authenticationRequest.getUsername());

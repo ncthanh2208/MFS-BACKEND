@@ -2,19 +2,18 @@ package com.dxc.fresher.auth.exceptions;
 
 import org.springframework.http.HttpStatus;
 
-import java.time.ZonedDateTime;
 
-public class ApiException {
+public class ApiException extends RuntimeException{
 
     private final String message;
     private final HttpStatus httpStatus;
-    private final ZonedDateTime timestamp;
 
-    public ApiException(String message, HttpStatus httpStatus, ZonedDateTime timestamp) {
+    public ApiException(String message, HttpStatus httpStatus) {
+        super(message);
         this.message = message;
         this.httpStatus = httpStatus;
-        this.timestamp = timestamp;
     }
+
 
     public String getMessage() {
         return message;
@@ -24,7 +23,4 @@ public class ApiException {
         return httpStatus;
     }
 
-    public ZonedDateTime getTimestamp() {
-        return timestamp;
-    }
 }

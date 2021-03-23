@@ -3,11 +3,13 @@ package com.dxc.fresher.file.services;
 
 import com.dxc.fresher.file.api.UserApi;
 import com.dxc.fresher.file.entities.File;
-import com.dxc.fresher.file.exceptions.ApiRequestException;
+import com.dxc.fresher.file.exceptions.ApiException;
+import com.dxc.fresher.file.exceptions.ApiExceptionHandler;
 import com.dxc.fresher.file.models.FileModel;
 import com.dxc.fresher.file.models.UserModel;
 import com.dxc.fresher.file.repositories.FileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -75,8 +77,8 @@ public class FileStorageServiceImlp implements FileStorageService {
                 return fileDb.getId();
         }
 
-        } catch (ApiRequestException | IOException e) {
-            throw new ApiRequestException("FAIL!!!");
+        } catch (ApiException | IOException e) {
+            throw new ApiException("FAIL!!!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return 0;
     }
@@ -193,7 +195,7 @@ public class FileStorageServiceImlp implements FileStorageService {
                 return fileDb;
             }
         }
-        throw new ApiRequestException("Level qua thap nha cu");
+        throw new ApiException("Level qua thap nha cu",HttpStatus.BAD_REQUEST);
     }
 
     @Override
