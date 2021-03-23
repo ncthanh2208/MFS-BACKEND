@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -32,50 +33,56 @@ public class FileStorageServiceImlp implements FileStorageService {
 
     @Override
     @Transactional
-    public int save(MultipartFile file, String userName) {
+    public int save(MultipartFile file, String userName, String category, String comment) {
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
         File fileDb = new File();
-         UserModel user = userApi.findByUserName(userName);
+        UserModel user = userApi.findByUserName(userName);
         try {
-        if("Gold".equals(user.getLevel())&& file.getSize() < 20971520) {
-            fileDb.setData(file.getBytes());
-            fileDb.setUserName(userName);
-            fileDb.setName(filename);
-            fileDb.setType(file.getContentType());
-            fileDb.setSize(file.getSize());
-            fileRepository.save(fileDb);
-            return fileDb.getId();
-        }
-        if("Silver".equals(user.getLevel()) && file.getSize() < 10485760){
-            fileDb.setData(file.getBytes());
-            fileDb.setUserName(userName);
-            fileDb.setName(filename);
-            fileDb.setType(file.getContentType());
-            fileDb.setSize(file.getSize());
-            fileRepository.save(fileDb);
-           long size = fileRepository.sumSizeFile(userName)+file.getSize();
-           if(size >= 52428800){
-               UserModel userModel = userApi.findByUserName(userName);
-               userModel.setLevel("Gold");
-               userApi.updateUser(userModel,userModel.getId());
-           }
-                    return fileDb.getId();
-        }
-      if("Bronze".equals(user.getLevel())&& file.getSize()< 5242880){
-            fileDb.setData(file.getBytes());
-            fileDb.setUserName(userName);
-            fileDb.setName(filename);
-            fileDb.setType(file.getContentType());
-            fileDb.setSize(file.getSize());
-            fileRepository.save(fileDb);
-          long size = fileRepository.sumSizeFile(userName)+file.getSize();
-          if(size >= 20971520 ){
-              UserModel userModel = userApi.findByUserName(userName);
-              userModel.setLevel("Silver");
-              userApi.updateUser(userModel,userModel.getId());
-          }
+            if ("Gold".equals(user.getLevel()) && file.getSize() < 20971520) {
+                fileDb.setData(file.getBytes());
+                fileDb.setUserName(userName);
+                fileDb.setName(filename);
+                fileDb.setType(file.getContentType());
+                fileDb.setSize(file.getSize());
+                fileDb.setCategory(category);
+                fileDb.setComment(comment);
+                fileRepository.save(fileDb);
                 return fileDb.getId();
-        }
+            }
+            if ("Silver".equals(user.getLevel()) && file.getSize() < 10485760) {
+                fileDb.setData(file.getBytes());
+                fileDb.setUserName(userName);
+                fileDb.setName(filename);
+                fileDb.setType(file.getContentType());
+                fileDb.setSize(file.getSize());
+                fileDb.setCategory(category);
+                fileDb.setComment(comment);
+                fileRepository.save(fileDb);
+                long size = fileRepository.sumSizeFile(userName) + file.getSize();
+                if (size >= 52428800) {
+                    UserModel userModel = userApi.findByUserName(userName);
+                    userModel.setLevel("Gold");
+                    userApi.updateUser(userModel, userModel.getId());
+                }
+                return fileDb.getId();
+            }
+            if ("Bronze".equals(user.getLevel()) && file.getSize() < 5242880) {
+                fileDb.setData(file.getBytes());
+                fileDb.setUserName(userName);
+                fileDb.setName(filename);
+                fileDb.setType(file.getContentType());
+                fileDb.setSize(file.getSize());
+                fileDb.setCategory(category);
+                fileDb.setComment(comment);
+                fileRepository.save(fileDb);
+                long size = fileRepository.sumSizeFile(userName) + file.getSize();
+                if (size >= 20971520) {
+                    UserModel userModel = userApi.findByUserName(userName);
+                    userModel.setLevel("Silver");
+                    userApi.updateUser(userModel, userModel.getId());
+                }
+                return fileDb.getId();
+            }
 
         } catch (ApiException | IOException e) {
             throw new ApiException("FAIL!!!", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -122,44 +129,44 @@ public class FileStorageServiceImlp implements FileStorageService {
     @Transactional
     public List<FileModel> getAll(int page) {
         int offset = 0;
-        if(page == 1){
-            offset =0;
+        if (page == 1) {
+            offset = 0;
         }
-        if (page != 1){
-            offset = (page-1) *6;
+        if (page != 1) {
+            offset = (page - 1) * 6;
         }
         return fileRepository.findAllFile(offset);
     }
 
     @Override
     @Transactional
-    public List<FileModel> searchByCategory(String category,int page) {
+    public List<FileModel> searchByCategory(String category, int page) {
         int offset = 0;
-        if(page == 1){
-            offset =0;
+        if (page == 1) {
+            offset = 0;
         }
-        if (page != 1){
-            offset = (page-1) *6;
+        if (page != 1) {
+            offset = (page - 1) * 6;
         }
-        return fileRepository.findFileByCategory(category,offset);
+        return fileRepository.findFileByCategory(category, offset);
     }
 
     @Override
     @Transactional
-    public List<FileModel> searchByUserName(String userName,int page) {
+    public List<FileModel> searchByUserName(String userName, int page) {
         int offset = 0;
-        if(page == 1){
-            offset =0;
+        if (page == 1) {
+            offset = 0;
         }
-        if (page != 1){
-            offset = (page-1) *6;
+        if (page != 1) {
+            offset = (page - 1) * 6;
         }
-        return fileRepository.findByFileUserName(userName,offset);
+        return fileRepository.findByFileUserName(userName, offset);
     }
 
     @Override
     @Transactional
-    public File downFile(int id,String userName) {
+    public File downFile(int id, String userName) {
         File fileDb = fileRepository.findById(id).get();
         UserModel userModel = userApi.findByUserName(userName);
         if ("Gold".equals(userModel.getLevel())) {
@@ -195,7 +202,7 @@ public class FileStorageServiceImlp implements FileStorageService {
                 return fileDb;
             }
         }
-        throw new ApiException("Level qua thap nha cu",HttpStatus.BAD_REQUEST);
+        throw new ApiException("Level qua thap nha cu", HttpStatus.BAD_REQUEST);
     }
 
     @Override

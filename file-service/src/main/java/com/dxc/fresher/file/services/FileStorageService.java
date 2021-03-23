@@ -24,7 +24,7 @@ public interface FileStorageService {
 
     public List<FileModel> getAll(int page);
 
-    public int save(MultipartFile file, String userName);
+    public int save(MultipartFile file, String userName,String category,String comment);
 
     public void saveFileDescripton(int fileId, File file);
 

@@ -25,35 +25,35 @@ public class UserServiceController {
 
 
     @GetMapping
-    public ResponseEntity<List<User>> findAll(){
+    public ResponseEntity<List<User>> findAll() {
         return new ResponseEntity<>(userService.getAllUser(), HttpStatus.OK);
     }
 
     @GetMapping("/{userName}")
-    public ResponseEntity<User> findByUserName(@PathVariable("userName") String userName){
-        return  new ResponseEntity<>(userService.findByUserName(userName),HttpStatus.OK);
+    public ResponseEntity<User> findByUserName(@PathVariable("userName") String userName) {
+        return new ResponseEntity<>(userService.findByUserName(userName), HttpStatus.OK);
     }
 
     @GetMapping("/admin/{userName}")
-    public ResponseEntity<User> loadByUserName(@PathVariable("userName") String userName){
-        return new ResponseEntity<>( userService.loadByUserName(userName),HttpStatus.OK);
+    public ResponseEntity<User> loadByUserName(@PathVariable("userName") String userName) {
+        return ResponseEntity.ok(userService.loadByUserName(userName));
     }
 
     @PostMapping()
-    public ResponseEntity addUser(@RequestBody User user){
+    public ResponseEntity addUser(@RequestBody User user) {
         userService.save(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updateUser(@RequestBody User user,@PathVariable("id") int id) {
-            userService.update(user,id);
-            return new ResponseEntity<>( HttpStatus.OK);
+    public ResponseEntity updateUser(@RequestBody User user, @PathVariable("id") int id) {
+        userService.update(user, id);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteUser(@PathVariable("id") int id){
-            userService.deleteById(id);
-           return new ResponseEntity<>( HttpStatus.OK);
+    public ResponseEntity deleteUser(@PathVariable("id") int id) {
+        userService.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 }
