@@ -35,7 +35,7 @@ public class FileStorageServiceImlp implements FileStorageService {
         File fileDb = new File();
          UserModel user = userApi.findByUserName(userName);
         try {
-        if(user.getLevel().equals("Gold")&& file.getSize() < 20971520) {
+        if("Gold".equals(user.getLevel())&& file.getSize() < 20971520) {
             fileDb.setData(file.getBytes());
             fileDb.setUserName(userName);
             fileDb.setName(filename);
@@ -44,7 +44,7 @@ public class FileStorageServiceImlp implements FileStorageService {
             fileRepository.save(fileDb);
             return fileDb.getId();
         }
-        if(user.getLevel().equals("Silver") && file.getSize() < 10485760){
+        if("Silver".equals(user.getLevel()) && file.getSize() < 10485760){
             fileDb.setData(file.getBytes());
             fileDb.setUserName(userName);
             fileDb.setName(filename);
@@ -59,7 +59,7 @@ public class FileStorageServiceImlp implements FileStorageService {
            }
                     return fileDb.getId();
         }
-      if(user.getLevel().equals("Bronze") && file.getSize()< 5242880){
+      if("Bronze".equals(user.getLevel())&& file.getSize()< 5242880){
             fileDb.setData(file.getBytes());
             fileDb.setUserName(userName);
             fileDb.setName(filename);
