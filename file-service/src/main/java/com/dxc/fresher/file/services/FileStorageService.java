@@ -8,6 +8,14 @@ import java.util.List;
 
 public interface FileStorageService {
 
+    public List<FileModel> searchBySize(long size,int page);
+
+    public int countFileBySize(long size);
+
+    public List<FileModel> searchByName(String name,int page);
+
+    public int countFileByName(String name);
+
     public int countFileByCategory(String category);
 
     public int countFileByUserName(String userName);

@@ -4,7 +4,6 @@ package com.dxc.fresher.file.services;
 import com.dxc.fresher.file.api.UserApi;
 import com.dxc.fresher.file.entities.File;
 import com.dxc.fresher.file.exceptions.ApiException;
-import com.dxc.fresher.file.exceptions.ApiExceptionHandler;
 import com.dxc.fresher.file.models.FileModel;
 import com.dxc.fresher.file.models.UserModel;
 import com.dxc.fresher.file.repositories.FileRepository;
@@ -109,6 +108,44 @@ public class FileStorageServiceImlp implements FileStorageService {
 
     @Override
     @Transactional
+    public List<FileModel> searchBySize(long size, int page) {
+        int offset = 0;
+        if (page == 1) {
+            offset = 0;
+        }
+        if (page != 1) {
+            offset = (page - 1) * 6;
+        }
+        return fileRepository.findFileBySize(size,offset);
+    }
+
+    @Override
+    @Transactional
+    public int countFileBySize(long size) {
+        return fileRepository.countFileBySize(size);
+    }
+
+    @Override
+    @Transactional
+    public List<FileModel> searchByName(String name, int page) {
+        int offset = 0;
+        if (page == 1) {
+            offset = 0;
+        }
+        if (page != 1) {
+            offset = (page - 1) * 6;
+        }
+        return fileRepository.findFileByName(name,offset);
+    }
+
+    @Override
+    @Transactional
+    public int countFileByName(String name) {
+        return fileRepository.countFileByName(name);
+    }
+
+    @Override
+    @Transactional
     public int countFileByCategory(String category) {
         return fileRepository.countFileByCategory(category);
     }
@@ -161,7 +198,7 @@ public class FileStorageServiceImlp implements FileStorageService {
         if (page != 1) {
             offset = (page - 1) * 6;
         }
-        return fileRepository.findByFileUserName(userName, offset);
+        return fileRepository.findFileByUserName(userName, offset);
     }
 
     @Override
@@ -202,7 +239,7 @@ public class FileStorageServiceImlp implements FileStorageService {
                 return fileDb;
             }
         }
-        throw new ApiException("Level qua thap nha cu", HttpStatus.BAD_REQUEST);
+        throw new ApiException("Level is not enough!", HttpStatus.BAD_REQUEST);
     }
 
     @Override
