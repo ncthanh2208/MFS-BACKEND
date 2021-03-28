@@ -27,19 +27,10 @@ public class FileServiceController {
 
 
     @GetMapping("/results")
-    private ResponseEntity<ReponseModel> searchByName(@RequestParam(name = "name") String name,@RequestParam(name = "page") int page){
-        List<FileModel> fileModels = storageService.searchByName(name,page);
+    private ResponseEntity<ReponseModel> searchByName(@RequestParam(name = "name") String name,@RequestParam(name= "size") long size,@RequestParam(name = "page") int page){
+        List<FileModel> fileModels = storageService.searchByNameAndSize(name,size,page);
         ReponseModel reponseModel = new ReponseModel();
-        reponseModel.setCount(storageService.countFileByName(name));
-        reponseModel.setFileModel(fileModels);
-        return ResponseEntity.status(HttpStatus.OK).body(reponseModel);
-    }
-
-    @GetMapping("/result")
-    private ResponseEntity<ReponseModel> searchBySize(@RequestParam(name= "size") long size,@RequestParam(name = "page") int page){
-        List<FileModel> fileModels = storageService.searchBySize(size,page);
-        ReponseModel reponseModel = new ReponseModel();
-        reponseModel.setCount(storageService.countFileBySize(size));
+        reponseModel.setCount(storageService.countFilebyNameAndSize(name,size));
         reponseModel.setFileModel(fileModels);
         return ResponseEntity.status(HttpStatus.OK).body(reponseModel);
     }

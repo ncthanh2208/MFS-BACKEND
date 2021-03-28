@@ -107,8 +107,7 @@ public class FileStorageServiceImlp implements FileStorageService {
 
 
     @Override
-    @Transactional
-    public List<FileModel> searchBySize(long size, int page) {
+    public List<FileModel> searchByNameAndSize(String name, long size, int page) {
         int offset = 0;
         if (page == 1) {
             offset = 0;
@@ -116,32 +115,12 @@ public class FileStorageServiceImlp implements FileStorageService {
         if (page != 1) {
             offset = (page - 1) * 6;
         }
-        return fileRepository.findFileBySize(size,offset);
+        return fileRepository.findFileByNameAndSize(name,size,offset);
     }
 
     @Override
-    @Transactional
-    public int countFileBySize(long size) {
-        return fileRepository.countFileBySize(size);
-    }
-
-    @Override
-    @Transactional
-    public List<FileModel> searchByName(String name, int page) {
-        int offset = 0;
-        if (page == 1) {
-            offset = 0;
-        }
-        if (page != 1) {
-            offset = (page - 1) * 6;
-        }
-        return fileRepository.findFileByName(name,offset);
-    }
-
-    @Override
-    @Transactional
-    public int countFileByName(String name) {
-        return fileRepository.countFileByName(name);
+    public int countFilebyNameAndSize(String name, long size) {
+        return fileRepository.countFileByNameAndSize(name,size);
     }
 
     @Override

@@ -46,8 +46,6 @@ class AuthenticationController {
         }
 
         UserModel userResults = userApi.findByUserName(authenticationRequest.getUsername());
-//		final UserDetails userDetails = userDetailsService
-//				.loadUserByUsername(authenticationRequest.getUsername());
 
         final String token = jwtTokenUtil.generateToken(userResults.getUserName());
 

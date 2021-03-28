@@ -23,17 +23,11 @@ public interface FileRepository extends JpaRepository<File,Integer> {
     @Query(value = "SELECT f.id,f.category,f.comment,f.name,f.size,f.type,f.username FROM File f WHERE f.username=:userName LIMIT 6 OFFSET :offset", nativeQuery = true)
     public List<FileModel> findFileByUserName(@Param("userName") String userName,@Param("offset") int offset);
 
-    @Query(value = "SELECT f.id,f.category,f.comment,f.name,f.size,f.type,f.username FROM File f WHERE f.name LIKE %:name% LIMIT 6 OFFSET :offset", nativeQuery = true)
-    public List<FileModel> findFileByName(@Param("name") String name,@Param("offset") int offset);
+    @Query(value = "SELECT f.id,f.category,f.comment,f.name,f.size,f.type,f.username FROM File f WHERE f.name LIKE %:name% && f.size >= :size LIMIT 6 OFFSET :offset", nativeQuery = true)
+    public List<FileModel> findFileByNameAndSize(@Param("name") String name,@Param("size") long size,@Param("offset") int offset);
 
-    @Query(value = "SELECT count(*) FROM File f WHERE f.name LIKE %:name% ", nativeQuery = true)
-    public int countFileByName(@Param("name") String name);
-
-    @Query(value = "SELECT f.id,f.category,f.comment,f.name,f.size,f.type,f.username FROM File f WHERE f.size >= :size LIMIT 6 OFFSET :offset", nativeQuery = true)
-    public List<FileModel> findFileBySize(@Param("size") long size,@Param("offset") int offset);
-
-    @Query(value = "SELECT count(*) FROM File f WHERE f.size >= :size", nativeQuery = true)
-    public int countFileBySize(@Param("size") long size);
+    @Query(value = "SELECT count(*) FROM File f WHERE f.name LIKE %:name% && f.size >= :size ", nativeQuery = true)
+    public int countFileByNameAndSize(@Param("name") String name,@Param("size") long size);
 
     @Query(value = "SELECT count(*) FROM File f WHERE f.category=:category", nativeQuery = true)
     public int countFileByCategory(@Param("category") String category);
