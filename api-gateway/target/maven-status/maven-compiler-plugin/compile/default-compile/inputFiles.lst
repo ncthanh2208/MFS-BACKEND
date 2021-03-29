@@ -1,0 +1,8 @@
+D:\MSF\MFS-BACKEND\api-gateway\src\main\java\com\dxc\fresher\apigateway\models\UserModel.java
+D:\MSF\MFS-BACKEND\api-gateway\src\main\java\com\dxc\fresher\apigateway\config\JwtAuthenticationEntryPoint.java
+D:\MSF\MFS-BACKEND\api-gateway\src\main\java\com\dxc\fresher\apigateway\services\MyUserDetailsService.java
+D:\MSF\MFS-BACKEND\api-gateway\src\main\java\com\dxc\fresher\apigateway\ApiGatewayApplication.java
+D:\MSF\MFS-BACKEND\api-gateway\src\main\java\com\dxc\fresher\apigateway\config\JwtRequestFilter.java
+D:\MSF\MFS-BACKEND\api-gateway\src\main\java\com\dxc\fresher\apigateway\api\UserApi.java
+D:\MSF\MFS-BACKEND\api-gateway\src\main\java\com\dxc\fresher\apigateway\config\ApiGatewaySecurity.java
+D:\MSF\MFS-BACKEND\api-gateway\src\main\java\com\dxc\fresher\apigateway\util\JwtTokenUtil.java
