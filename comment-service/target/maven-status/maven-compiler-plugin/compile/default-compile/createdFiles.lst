@@ -1,0 +1,7 @@
+com\dxc\fresher\commentservice\config\CommentConfig.class
+com\dxc\fresher\commentservice\services\CommentService.class
+com\dxc\fresher\commentservice\services\CommentServiceImlp.class
+com\dxc\fresher\commentservice\repositories\CommentRepository.class
+com\dxc\fresher\commentservice\controllers\CommentControler.class
+com\dxc\fresher\commentservice\entitties\Comment.class
+com\dxc\fresher\commentservice\CommentServiceApplication.class
