@@ -197,7 +197,7 @@ public class FileStorageServiceImlp implements FileStorageService {
                 userApi.updateUser(userModel, userModel.getId());
             }
             Long total = userModel.getDailyLimit() + fileDb.getSize();
-            if (total <= 52428800) {
+            if (total <= 73400320) {
                 userModel.setDailyLimit(total);
                 userApi.updateUser(userModel, userModel.getId());
                 return fileDb;
@@ -212,7 +212,7 @@ public class FileStorageServiceImlp implements FileStorageService {
                 userApi.updateUser(userModel, userModel.getId());
             }
             Long total = userModel.getDailyLimit() + fileDb.getSize();
-            if (total <= 20971520) {
+            if (total <= 52428800) {
                 userModel.setDailyLimit(total);
                 userApi.updateUser(userModel, userModel.getId());
                 return fileDb;

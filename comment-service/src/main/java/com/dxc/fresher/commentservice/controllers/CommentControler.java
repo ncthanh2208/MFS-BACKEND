@@ -14,7 +14,6 @@ import java.util.List;
 @RequestMapping("/comments")
 public class CommentControler {
 
-
     @Autowired
     private CommentService  commentService;
 
@@ -26,9 +25,7 @@ public class CommentControler {
 
     @GetMapping("/{fileId}")
     private ResponseEntity<List<Comment>> getComment(@PathVariable("fileId") int fileId){
-
       List<Comment> commentList =  commentService.getComment(fileId);
-
       return new ResponseEntity<>(commentList, HttpStatus.OK);
     }
 }
